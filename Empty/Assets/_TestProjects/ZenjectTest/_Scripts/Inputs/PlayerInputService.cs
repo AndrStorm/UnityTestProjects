@@ -2,18 +2,26 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-public class PlayerInputService : MonoBehaviour, IPlayerInputService
+public class PlayerInputService : IPlayerInputService, IInitializable, ITickable
 {
     private IPlayerInputHandler _playerInput;
-
-    [Inject] private Player _player;
     
-    private void Awake()
+    private PlayerInputHandlerProvider _playerInputHandlerProvider;
+
+
+    [Inject]
+    private void Constructor(PlayerInputHandlerProvider inputHandlerProvider)
     {
-        _playerInput = _player.PlayerInput;
+        _playerInputHandlerProvider = inputHandlerProvider;
+    }
+    
+
+    public void Initialize()
+    {
+        _playerInput = _playerInputHandlerProvider.PlayerInput;
     }
 
-    private void Update()
+    public void Tick()
     {
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
@@ -30,6 +38,10 @@ public class PlayerInputService : MonoBehaviour, IPlayerInputService
         {
             _playerInput.OnRotate(new Vector2(1,0));
         }
-        
+
+        if (Keyboard.current.spaceKey.isPressed)
+        {
+            _playerInput.OnJump();
+        }
     }
 }
