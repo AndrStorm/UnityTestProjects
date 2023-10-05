@@ -14,7 +14,7 @@ public class UImanager : MonoBehaviour
 
     private void OnPlayerHealed(PlayerHealedSignal args)
     {
-        ShowHealth(args.amount);
+        ShowHealth(args.Amount);
     }
 
     private void ShowHealth(int health)

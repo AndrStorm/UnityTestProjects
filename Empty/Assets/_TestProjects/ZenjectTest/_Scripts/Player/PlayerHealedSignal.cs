@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class PlayerHealedSignal
 {
-    public int amount;
+    public int Amount;
 }

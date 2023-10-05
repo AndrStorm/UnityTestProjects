@@ -23,7 +23,7 @@ public class Player : IInitializable
     
     public void HealPlayer(int healAmount)
     {
-        _signalBus?.Fire(new PlayerHealedSignal(){amount = healAmount});
+        _signalBus?.Fire(new PlayerHealedSignal(){Amount = healAmount});
         Debug.Log("Event Player health Incrised by " + healAmount);
     }
 
