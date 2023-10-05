@@ -4,18 +4,20 @@ using UnityEngine.Rendering.Universal;
 
 public class BlitRenderPassFeature : ScriptableRendererFeature
 {
-    class CustomRenderPass : ScriptableRenderPass
+    private class CustomRenderPass : ScriptableRenderPass
     {
 
-        public RenderTargetIdentifier source;
-        private Material material;
+        public RenderTargetIdentifier Source;
+        private readonly Material _material;
         
-        private RenderTargetHandle tempRenderTargetHandle; //texture buffer
+        // ReSharper disable once FieldCanBeMadeReadOnly.Local
+        private RenderTargetHandle _tempRenderTargetHandle; //texture buffer
 
+        
         public CustomRenderPass(Material material)
         {
-            this.material = material;
-            tempRenderTargetHandle.Init("_TempColorTexture");
+            _material = material;
+            _tempRenderTargetHandle.Init("_TempColorTexture");
         }
         
         // This method is called before executing the render pass.
@@ -34,16 +36,15 @@ public class BlitRenderPassFeature : ScriptableRendererFeature
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
         {
             CommandBuffer commandBuffer = CommandBufferPool.Get("Custom Blit Pass");
-            
-            Blit(commandBuffer,source,source, material);  //works without texture buffer
-            // commandBuffer.GetTemporaryRT(tempRenderTargetHandle.id,renderingData.cameraData.cameraTargetDescriptor);
-            // Blit(commandBuffer,source,tempRenderTargetHandle.Identifier(), material);
-            // Blit(commandBuffer,tempRenderTargetHandle.Identifier(),source, material);
+
+            Blit(commandBuffer, Source, Source, _material); //works without texture buffer
+            // commandBuffer.GetTemporaryRT(_tempRenderTargetHandle.id,
+            // renderingData.cameraData.cameraTargetDescriptor);
+            // Blit(commandBuffer, Source, _tempRenderTargetHandle.Identifier(), _material);
+            // Blit(commandBuffer, _tempRenderTargetHandle.Identifier(), Source, _material);
 
             context.ExecuteCommandBuffer(commandBuffer);
             CommandBufferPool.Release(commandBuffer);
-               
-
         }
 
         // Cleanup any allocated resources that were created during the execution of this render pass.
@@ -59,22 +60,23 @@ public class BlitRenderPassFeature : ScriptableRendererFeature
 
     public Settings settings = new Settings();
 
-    CustomRenderPass m_ScriptablePass;
+    private CustomRenderPass m_ScriptablePass;
 
     /// <inheritdoc/>
     public override void Create()
     {
-        m_ScriptablePass = new CustomRenderPass(settings.material);
-
-        // Configures where the render pass should be injected.
-        m_ScriptablePass.renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing;
+        m_ScriptablePass = new CustomRenderPass(settings.material)
+        {
+            // Configures where the render pass should be injected.
+            renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing
+        };
     }
 
     // Here you can inject one or multiple render passes in the renderer.
     // This method is called when setting up the renderer once per-camera.
     public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
     {
-        m_ScriptablePass.source = renderer.cameraColorTarget;
+        m_ScriptablePass.Source = renderer.cameraColorTarget;
         
         renderer.EnqueuePass(m_ScriptablePass);
     }
