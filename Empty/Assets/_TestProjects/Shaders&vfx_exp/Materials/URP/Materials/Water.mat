@@ -52,6 +52,8 @@ Material:
     - _Alpha: 0.75
     - _Foap: 0.65
     - _NormalStrenght: 0.136
+    - _QueueControl: 0
+    - _QueueOffset: 0
     - _RippleDensity: 6
     - _RippleSpeed: 0.33
     - _RippleThickness: 6

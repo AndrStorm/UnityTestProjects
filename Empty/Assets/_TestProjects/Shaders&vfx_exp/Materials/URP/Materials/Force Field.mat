@@ -52,6 +52,8 @@ Material:
     - Vector1_64c04c6a394248fa891a2c86c73f5b42: 0.007
     - Vector1_e0211443a6f543699ae1eb853fc0ab16: 0.02
     - _FresnelPower: 7
+    - _QueueControl: 0
+    - _QueueOffset: 0
     m_Colors:
     - _ColorEmission: {r: 5.3403134, g: 2.1383946, b: 1.0831769, a: 0}
   m_BuildTextureStacks: []
