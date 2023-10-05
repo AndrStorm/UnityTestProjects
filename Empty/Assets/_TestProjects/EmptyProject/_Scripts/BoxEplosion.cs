@@ -42,7 +42,7 @@ public class BoxEplosion : MonoBehaviour
             var rb = t.gameObject.GetComponent<Rigidbody>();
 
             if (rb != null)
-            rb.AddExplosionForce(Random.Range(min, max), t.position, rad);
+                rb.AddExplosionForce(Random.Range(min, max), t.position, rad);
 
             StartCoroutine(Shrink(t,2));
                

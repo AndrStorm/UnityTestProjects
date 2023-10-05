@@ -70,10 +70,10 @@ namespace StarterAssets
         public float BottomClamp = -30.0f;
 
         [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
-        public float CameraAngleOverride = 0.0f;
+        public float CameraAngleOverride;
 
         [Tooltip("For locking the camera position on all axis")]
-        public bool LockCameraPosition = false;
+        public bool LockCameraPosition;
 
         // cinemachine
         private float _cinemachineTargetYaw;
@@ -82,10 +82,10 @@ namespace StarterAssets
         // player
         private float _speed;
         private float _animationBlend;
-        private float _targetRotation = 0.0f;
+        private float _targetRotation;
         private float _rotationVelocity;
         private float _verticalVelocity;
-        private float _terminalVelocity = 53.0f;
+        private const float _terminalVelocity = 53.0f;
 
         // timeout deltatime
         private float _jumpTimeoutDelta;
@@ -178,8 +178,9 @@ namespace StarterAssets
         private void GroundedCheck()
         {
             // set sphere position, with offset
-            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset,
-                transform.position.z);
+            var transformPos = transform.position;
+            Vector3 spherePosition = new Vector3(transformPos.x, transformPos.y - GroundedOffset,
+                transformPos.z);
             Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
                 QueryTriggerInteraction.Ignore);
 
@@ -223,7 +224,8 @@ namespace StarterAssets
             if (_input.move == Vector2.zero) targetSpeed = 0.0f;
 
             // a reference to the players current horizontal velocity
-            float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
+            var velocity = _controller.velocity;
+            float currentHorizontalSpeed = new Vector3(velocity.x, 0.0f, velocity.z).magnitude;
 
             float speedOffset = 0.1f;
             float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
@@ -360,12 +362,12 @@ namespace StarterAssets
             Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
             Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
 
-            if (Grounded) Gizmos.color = transparentGreen;
-            else Gizmos.color = transparentRed;
+            Gizmos.color = Grounded ? transparentGreen : transparentRed;
 
             // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
+            var transformPos = transform.position;
             Gizmos.DrawSphere(
-                new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z),
+                new Vector3(transformPos.x, transformPos.y - GroundedOffset, transformPos.z),
                 GroundedRadius);
         }
 
