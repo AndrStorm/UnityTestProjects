@@ -2,14 +2,16 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: zFirstUnlit_CG
   m_Shader: {fileID: 4800000, guid: 8366f7abd048ef74db09a49a9738f32c, type: 3}
-  m_ShaderKeywords: _EMISSION
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _EMISSION
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -20,7 +22,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _HeightTex:
-        m_Texture: {fileID: 2800000, guid: d67b582fb861fba47a6e9dbb8d06981f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 44ff485a5f386e149a1df3a3f5a23f32, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -28,9 +30,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTex:
-        m_Texture: {fileID: 2800000, guid: 25d4414c805bf4546836363bc603d984, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4274f8514dfebf04b996d7b47ae07c7b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _DispStrenght: 0.073
     - _DispacementStrenght: 1

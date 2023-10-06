@@ -2,21 +2,21 @@ Shader "Unlit/zFirstUnlitShader"
 {
     Properties
     {
-        _ColorBase ("Base Color", color) = (1,1,1,1)
-        _ColorSecond ("Secondary Color", color) = (1,1,1,1)
-        _AmbientLight ("Ambient Light", color) = (0,0,0,0)
+        _ColorBase ("Base Color", color) = (1, 1, 1, 1)
+        _ColorSecond ("Secondary Color", color) = (1, 1, 1, 1)
+        _AmbientLight ("Ambient Light", color) = (0, 0, 0, 0)
         
         _waveAmp ("Wave Amplitude", float) = 0.1
         _pulseAmp ("Pulse Amplitude", float) = 1
         _distortionAmp ("Distortion Amplitude", float) = 0.035
-        _pulseDist ("Pulse Distance", Range(0,1)) = 1
+        _pulseDist ("Pulse Distance", Range(0, 1)) = 1
         
         _Gloss ("Gloss", Range(0,1)) = 1
-        _NormalIntensity ("Normal Intensity", Range(0,1)) = 1
-        _DispStrenght ("Dispacement Strenght", Range(0,0.05)) = 0
+        _NormalIntensity ("Normal Intensity", Range(0, 1)) = 1
+        _DispStrenght ("Dispacement Strenght", Range(0, 0.05)) = 0
         
-        _UOffset ("U Offset", Range(0,1)) = 0
-        _VOffset ("V Offset", Range(0,1)) = 0
+        _UOffset ("U Offset", Range(0, 1)) = 0
+        _VOffset ("V Offset", Range(0, 1)) = 0
         
         _MainTex ("Texture", 2D) = "white" {}
         [NoScaleOffset]_NormalTex("Normal map", 2D) = "Bump" {} //bump is a flat normal map
@@ -25,7 +25,7 @@ Shader "Unlit/zFirstUnlitShader"
     SubShader
     {
         Tags { 
-            "RenderType"="Opaque" //inform the render pipeline (postprocessing)
+            "RenderType" = "Opaque" //inform the render pipeline (postprocessing)
             "Queue" = "Transparent" //"Queue" = "Transparent" //render order // Geometry causing appear AO (pp) stuff
          }
         LOD 100
@@ -37,7 +37,7 @@ Shader "Unlit/zFirstUnlitShader"
             ZWrite Off //Depth buffer
             //ZTest LEqual //drawing through other meshes, default LEqual/Always/GEqual
             Blend One One //additive
-            //Blend SrcAlpha OneMinusSrcAlpha // aphaBlending src*a + dist* (1-a) 
+            //Blend SrcAlpha OneMinusSrcAlpha // aphaBlending src * a + dest * (1-a) 
 
 
             CGPROGRAM
@@ -56,7 +56,7 @@ Shader "Unlit/zFirstUnlitShader"
         Pass
         {
             
-            Tags{ "LightMode" = "ForwardBase"}
+            Tags{"LightMode" = "ForwardBase"}
             Blend One One //additive
 
             CGPROGRAM
@@ -75,9 +75,8 @@ Shader "Unlit/zFirstUnlitShader"
         Pass
         {
             
-            Tags{ "LightMode" = "ForwardAdd"}
+            Tags{"LightMode" = "ForwardAdd"}
             Blend One One //additive
-
 
             CGPROGRAM
             #pragma vertex vert
