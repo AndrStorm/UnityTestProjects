@@ -37,10 +37,10 @@ Material:
     m_Floats:
     - _DispStrenght: 0.05
     - _DispacementStrenght: 1
-    - _Gloss: 0.282
+    - _Gloss: 0.408
     - _NormalIntensity: 1
-    - _UOffset: 0.75
-    - _VOffset: 0.875
+    - _UOffset: 0
+    - _VOffset: 0
     - _distortionAmp: 0.035
     - _pulseAmp: 1
     - _pulseDist: 1
@@ -49,5 +49,5 @@ Material:
     m_Colors:
     - _AmbientLight: {r: 0.077830195, g: 0.086478, b: 0.103773594, a: 1}
     - _ColorBase: {r: 0, g: 0, b: 0, a: 1}
-    - _ColorSecond: {r: 0.3820755, g: 0.8786899, b: 1, a: 1}
+    - _ColorSecond: {r: 0.2783019, g: 0.858401, b: 1, a: 1}
   m_BuildTextureStacks: []
