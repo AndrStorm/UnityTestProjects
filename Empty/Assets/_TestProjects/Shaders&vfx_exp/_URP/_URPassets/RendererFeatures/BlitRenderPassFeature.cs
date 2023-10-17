@@ -9,9 +9,9 @@ public class BlitRenderPassFeature : ScriptableRendererFeature
         
         private readonly BlitSettings settings;
         
-        private RTHandle rth_source;
-        private RTHandle rth_destination;
-        private RTHandle rth_temp;
+        private RTHandle _source;
+        private RTHandle _destination;
+        private RTHandle _temp;
         
         //private RTHandle srcTextureId;
         private readonly RTHandle srcTextureObject;
@@ -57,7 +57,7 @@ public class BlitRenderPassFeature : ScriptableRendererFeature
         
         public void Dispose() 
         {
-            rth_temp?.Release();
+            _temp?.Release();
             dstTextureId?.Release();
         }
         
@@ -65,8 +65,8 @@ public class BlitRenderPassFeature : ScriptableRendererFeature
         // Cleanup any allocated resources that were created during the execution of this render pass.
         public override void OnCameraCleanup(CommandBuffer cmd) 
         {
-            rth_source = null;
-            rth_destination = null;
+            _source = null;
+            _destination = null;
         }
         
         /*
@@ -84,13 +84,14 @@ public class BlitRenderPassFeature : ScriptableRendererFeature
             
             /*RenderingUtils.ReAllocateIfNeeded(ref rth_temp, desc, FilterMode.Point,
                 TextureWrapMode.Clamp, name: "_TempColorTexture");*/
-            RenderingUtils.ReAllocateIfNeeded(ref rth_temp, desc, name: "_TemporaryColorTexture");
+            RenderingUtils.ReAllocateIfNeeded(ref _temp, desc, name: "_TemporaryColorTexture");
             
             var renderer = renderingData.cameraData.renderer;
             
+            
             if (settings.srcType == Target.CameraColor) 
             {
-                rth_source = renderer.cameraColorTargetHandle;
+                _source = renderer.cameraColorTargetHandle;
             } 
             else if (settings.srcType == Target.TextureID) 
             {
@@ -105,27 +106,28 @@ public class BlitRenderPassFeature : ScriptableRendererFeature
                 Instead, I guess we'll have to rely on the shader sampling the global textureID
                 #1#*/
                 
-                rth_source = rth_temp;
+                _source = _temp;
             }
             else if (settings.srcType == Target.RenderTextureObject) 
             {
-                rth_source = srcTextureObject;
+                _source = srcTextureObject;
             }
+            
             
             if (settings.dstType == Target.CameraColor) 
             {
-                rth_destination = renderer.cameraColorTargetHandle;
+                _destination = renderer.cameraColorTargetHandle;
             } 
             else if (settings.dstType == Target.TextureID) 
             {
                 desc.graphicsFormat = settings.graphicsFormat;
                 RenderingUtils.ReAllocateIfNeeded(ref dstTextureId,
                     Vector2.one, desc, name: settings.dstTextureId);
-                rth_destination = dstTextureId;
+                _destination = dstTextureId;
             } 
             else if (settings.dstType == Target.RenderTextureObject) 
             {
-                rth_destination = dstTextureObject;
+                _destination = dstTextureObject;
             }
         }
 
@@ -146,14 +148,14 @@ public class BlitRenderPassFeature : ScriptableRendererFeature
                     renderingData.cameraData.camera.cameraToWorldMatrix);
             }
             
-            if (rth_source == rth_destination)
+            if (_source == _destination)
             {
-                Blitter.BlitCameraTexture(commandBuffer, rth_source, rth_temp, _material, _passIndex);
-                Blitter.BlitCameraTexture(commandBuffer, rth_temp, rth_destination, Vector2.one);
+                Blitter.BlitCameraTexture(commandBuffer, _source, _temp, _material, _passIndex);
+                Blitter.BlitCameraTexture(commandBuffer, _temp, _destination, Vector2.one);
             }
             else
             {
-                Blitter.BlitCameraTexture(commandBuffer, rth_source, rth_destination,
+                Blitter.BlitCameraTexture(commandBuffer, _source, _destination,
                     _material, settings.blitMaterialPassIndex);
             }
 
@@ -212,7 +214,8 @@ public class BlitRenderPassFeature : ScriptableRendererFeature
     public override void Create()
     {
         var passIndex = settings.material != null ? settings.material.passCount - 1 : 1;
-        settings.blitMaterialPassIndex = Mathf.Clamp(settings.blitMaterialPassIndex, -1, passIndex);
+        settings.blitMaterialPassIndex = Mathf.Clamp
+            (settings.blitMaterialPassIndex, -1, passIndex);
         
         m_ScriptablePass = new CustomRenderPass(settings, name);
         
@@ -236,7 +239,6 @@ public class BlitRenderPassFeature : ScriptableRendererFeature
         
         /*//obsolete
         m_ScriptablePass.Source = renderer.cameraColorTarget;*/
-        //m_ScriptablePass.Source = renderer.cameraColorTargetHandle; //-
 
         renderer.EnqueuePass(m_ScriptablePass);
     }

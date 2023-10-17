@@ -3,7 +3,6 @@ Shader "Custom/BlitExample" {
     {
         _colorBase ("Base Color", color) = (1, 1, 1, 1)
         _alpha ("Base Color", Range(0, 1)) = 0
-
     }
     SubShader {
         Tags 
@@ -37,7 +36,8 @@ Shader "Custom/BlitExample" {
             CBUFFER_END
 
             
-            // Copied from Blit.hlsl, but edited to remove _BlitScaleBias to make sure result fits screen properly
+            // Copied from Blit.hlsl, but edited to remove _BlitScaleBias
+            // to make sure result fits screen properly
             // ... why do I need to do this??
             Varyings VertNoScaleBias(Attributes input)
             {
