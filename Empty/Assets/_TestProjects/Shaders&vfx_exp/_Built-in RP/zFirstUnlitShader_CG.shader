@@ -53,11 +53,11 @@ Shader "Unlit/zFirstUnlitShader_CG"
         }
          
         //dir light pass
-        /*
         Pass
         {
             
             Tags{"LightMode" = "UniversalForwardBase"}
+            //Tags{"LightMode" = "ForwardBase"}
             Blend One One //additive
 
             CGPROGRAM
@@ -71,9 +71,7 @@ Shader "Unlit/zFirstUnlitShader_CG"
             
             ENDCG
         }
-        */
         
-        /*
         //add pass
         Pass
         {
@@ -93,7 +91,6 @@ Shader "Unlit/zFirstUnlitShader_CG"
            
             ENDCG
         }
-        */
         
     }
 }

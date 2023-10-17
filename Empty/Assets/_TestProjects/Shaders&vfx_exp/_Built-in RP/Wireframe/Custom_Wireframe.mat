@@ -7,14 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: zFirstUnlit_HLSR
-  m_Shader: {fileID: 4800000, guid: 674d653d52ba9464b9f33dce7e25491a, type: 3}
+  m_Name: Custom_Wireframe
+  m_Shader: {fileID: 4800000, guid: e6fa7ded64fc1e2479a3beeb1e86b2f3, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
-  m_InvalidKeywords:
-  - _EMISSION
-  m_LightmapFlags: 2
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -24,10 +23,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _HeightTex:
-        m_Texture: {fileID: 2800000, guid: 44ff485a5f386e149a1df3a3f5a23f32, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -38,19 +33,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DispStrenght: 0.06
-    - _DispacementStrenght: 1
-    - _Gloss: 0.418
-    - _NormalIntensity: 1
-    - _UOffset: 0
-    - _VOffset: 0
-    - _distortionAmp: 0.035
-    - _pulseAmp: 1
-    - _pulseDist: 1
-    - _pulseDistortionAmp: 0.035
-    - _waveAmp: 0.2
+    - _Gloss: 0.328
+    - _Glossiness: 0.5
+    - _Metallic: 0
+    - _NormalIntensity: 0
+    - _WireframeSmoothing: 1.61
+    - _WireframeThickness: 2.8
     m_Colors:
-    - _AmbientLight: {r: 0.077830195, g: 0.086478, b: 0.103773594, a: 1}
-    - _ColorBase: {r: 0, g: 0, b: 0, a: 1}
-    - _ColorSecond: {r: 1, g: 0.55395955, b: 0.32549024, a: 1}
+    - _Color: {r: 0.41460484, g: 0.6667212, b: 0.7264151, a: 1}
+    - _WireframeColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

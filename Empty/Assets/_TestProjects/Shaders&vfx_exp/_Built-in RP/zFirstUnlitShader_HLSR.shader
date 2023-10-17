@@ -24,11 +24,12 @@ Shader "Unlit/zFirstUnlitShader_HLSR"
     }
     SubShader
     {
-        Tags { 
+        Tags 
+        { 
             "RenderType" = "Transparent" //inform the render pipline (postproccessing)
             "Queue" = "Transparent" //"Queue" = "Transparent" //render order // Geometry causing appear AO (pp) stuff
-            "RenderPipeline" = "LightweightPipeline"
-         }
+            //"RenderPipeline" = "LightweightPipeline"
+        }
         LOD 100
         //base pass
         Pass

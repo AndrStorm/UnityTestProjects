@@ -9,6 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: zFirstUnlit_CG
   m_Shader: {fileID: 4800000, guid: 8366f7abd048ef74db09a49a9738f32c, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords:
   - _EMISSION
@@ -18,6 +20,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -30,7 +33,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTex:
-        m_Texture: {fileID: 2800000, guid: 4274f8514dfebf04b996d7b47ae07c7b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 50e24456718de4f42a9fffbdb021f269, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -49,5 +52,5 @@ Material:
     m_Colors:
     - _AmbientLight: {r: 0.077830195, g: 0.086478, b: 0.103773594, a: 1}
     - _ColorBase: {r: 0, g: 0, b: 0, a: 1}
-    - _ColorSecond: {r: 0.3803922, g: 1, b: 0.39680278, a: 1}
+    - _ColorSecond: {r: 0.3033108, g: 0.9056604, b: 0.31856018, a: 1}
   m_BuildTextureStacks: []
