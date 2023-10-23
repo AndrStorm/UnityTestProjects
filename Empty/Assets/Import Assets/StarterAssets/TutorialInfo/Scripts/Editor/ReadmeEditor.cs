@@ -46,7 +46,7 @@ public class ReadmeEditor : Editor {
 	static Readme SelectReadme() 
 	{
 		var ids = AssetDatabase.FindAssets("Readme t:Readme");
-		Debug.Log($"ids count {ids.Length}");
+		//Debug.Log($"ids count {ids.Length}");
 		if (ids.Length == 1)
 		{
 			var readmeObject = AssetDatabase.LoadMainAssetAtPath(AssetDatabase.GUIDToAssetPath(ids[0]));
