@@ -1,5 +1,3 @@
-// Upgrade NOTE: replaced 'defined float3' with 'defined (float3)'
-
 #if !defined(TESSELLATION_INCLUDED)
 #define TESSELLATION_INCLUDED
 

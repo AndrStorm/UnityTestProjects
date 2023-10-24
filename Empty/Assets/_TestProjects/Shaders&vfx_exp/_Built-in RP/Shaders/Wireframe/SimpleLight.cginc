@@ -8,9 +8,9 @@
 #endif
 
 
-float3 CreateBinormal (float3 normal, float3 tangent, float binormalSign) {
+float3 CreateBitangent (float3 normal, float3 tangent, float bitangentSign) {
     return cross(normal, tangent.xyz) *
-        (binormalSign * unity_WorldTransformParams.w);
+        (bitangentSign * unity_WorldTransformParams.w);
 }
 
 InterpolatorsVertex vert(MeshData v)
@@ -30,7 +30,7 @@ InterpolatorsVertex vert(MeshData v)
     o.tangent = float4(UnityObjectToWorldDir(v.tangent.xyz), v.tangent.w);
     #else
     o.tangent = UnityObjectToWorldDir(v.tangent.xyz);
-    o.bitangent = CreateBinormal(o.normal, o.tangent, v.tangent.w);
+    o.bitangent = CreateBitangent(o.normal, o.tangent, v.tangent.w);
     #endif
     
     //o.tangent = UnityObjectToWorldDir(v.tangent.xyz);
@@ -52,7 +52,7 @@ void InitializeFragmentNormal(inout Interpolators i)
 
     #if defined(BINORMAL_PER_FRAGMENT)
     float3 bitangent =
-        CreateBinormal(i.normal, i.tangent.xyz, i.tangent.w);
+        CreateBitangent(i.normal, i.tangent.xyz, i.tangent.w);
     #else
     float3 bitangent = i.bitangent;
     #endif
@@ -72,23 +72,27 @@ void InitializeFragmentNormal(inout Interpolators i)
     i.normal = mul(mtxTangToWorld, tangentSpaceNormal);
 }
 
+void UseFlatShading (inout Interpolators i, bool isFlatShading = true)
+{
+    if (!isFlatShading) return;
+    //Flat shading based on screen-space derivatives
+    float3 dpdx = ddx(i.worldPos);
+    float3 dpdy = ddy(i.worldPos);
+    i.normal = normalize(cross(dpdy, dpdx));
+}
+
 float4 frag(Interpolators i) : SV_Target
 {
     float4 col = float4(ALBEDO_FUNCTION(i), 1);
 
-    /*//Flat shading based on screen-space derivatives
-    float3 dpdx = ddx(i.worldPos);
-    float3 dpdy = ddy(i.worldPos);
-    i.normal = normalize(cross(dpdy, dpdx));*/
+    UseFlatShading(i, false);
 
     
     #ifdef BASE_PASS
     return col/* + _AmbientLight*/;
-
     
     #else
     #ifdef USE_LIGHTING
-
     
     //textures normal
     //float3 normalMap = UnpackNormal(tex2D(_NormalTex,i.uv)) * 0.5 + 0.5; //looks like normal map

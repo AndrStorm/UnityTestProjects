@@ -41,8 +41,8 @@ Material:
     - _FACTOR_MODE: 1
     - _FrustumBias: -0.3
     - _Gloss: 0.25
-    - _NormalIntensity: 0.91
-    - _ParallaxStrength: 0.512
+    - _NormalIntensity: 1
+    - _ParallaxStrength: 0.525
     - _TesselationUniform: 2
     - _TessellationEdgeLength: 9
     - _WireframeSmoothing: 1

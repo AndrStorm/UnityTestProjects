@@ -18,7 +18,7 @@ void ComputeVertexLightColor (inout InterpolatorsVertex i) {
 	#endif
 }
 
-float3 CreateBinormal (float3 normal, float3 tangent, float binormalSign) {
+float3 CreateBitangent (float3 normal, float3 tangent, float binormalSign) {
 	return cross(normal, tangent.xyz) *
 		(binormalSign * unity_WorldTransformParams.w);
 }
@@ -273,7 +273,7 @@ void InitializeFragmentNormal(inout Interpolators i) {
 	float3 tangentSpaceNormal = GetTangentSpaceNormal(i);
 	#if defined(BINORMAL_PER_FRAGMENT)
 		float3 binormal =
-			CreateBinormal(i.normal, i.tangent.xyz, i.tangent.w);
+			CreateBitangent(i.normal, i.tangent.xyz, i.tangent.w);
 	#else
 		float3 binormal = i.binormal;
 	#endif
